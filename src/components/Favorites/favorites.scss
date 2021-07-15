@@ -1,0 +1,367 @@
+@import '../../assets/scss/variables.scss';
+@import '../../assets/scss/placeholders.scss';
+@import '../../assets/scss/mixins.scss';
+
+.header {
+  &-favorites {
+    position: relative;
+    &-block {
+      display: flex;
+      margin-left: 10px;
+      align-items: center;
+      cursor: pointer;
+      height: 42px;
+      background-color: white;
+      box-shadow: 0 4px 12px 0 rgba(0, 0, 0, 0.1);
+      -webkit-box-shadow: 0 4px 12px 0 rgba(0, 0, 0, 0.1);
+      border-radius: 21px;
+      &:hover {
+        @extend %whiteBtnHover;
+      }
+      &__logo {
+        width: 42px;
+        height: 42px;
+        background: url('../../assets/img/icons/feeds/star-filled.svg')
+          no-repeat;
+        background-position: center;
+        border-radius: 21px;
+        border: 4px solid $white;
+      }
+      &__input {
+        height: 32px;
+        width: 220px;
+        padding: 0.5rem 0.8rem;
+        border-radius: 4px;
+        background-color: #f0f0f0;
+        border: none;
+        margin-right: 10px;
+      }
+      &__input:focus {
+        outline: none;
+      }
+    }
+
+    &__button {
+      width: 30%;
+      display: flex;
+      align-items: center;
+      outline: none;
+      border: none;
+      border-radius: 20px;
+      background-color: $white;
+      color: #00838f;
+      cursor: pointer;
+      font-family: Roboto;
+      font-size: 14px;
+      font-weight: 500;
+      margin: 1rem 0rem;
+      padding: 0;
+      &-plus {
+        width: 14px;
+        margin-right: 5px;
+      }
+      &-group {
+        width: 100%;
+        margin: 1rem 0;
+        display: flex;
+        align-items: center;
+      }
+      &-submit {
+        width: 32px;
+        height: 32px;
+        outline: none;
+        border-radius: 4px;
+        border: none;
+        cursor: pointer;
+        margin-right: 10px;
+        &:hover {
+          @extend %whiteBtnHover;
+        }
+      }
+      &-close {
+        width: 32px;
+        height: 32px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        outline: none;
+        border-radius: 4px;
+        border: none;
+        cursor: pointer;
+        padding: 0;
+        &:hover {
+          @extend %whiteBtnHover;
+        }
+        &-icon {
+          width: 16px;
+          cursor: pointer;
+          height: 16px;
+          background-color: $dark-bg;
+          -webkit-mask: url('../../assets/img/icons/filters/times.svg') center;
+          -webkit-mask-size: 14px 14px;
+          mask-size: 14px 14px;
+          mask: url('../../assets/img/icons/filters/times.svg') no-repeat center;
+        }
+      }
+    }
+    &__list {
+      width: 332px;
+      max-height: 80vh;
+      padding: 16px 16px 0rem 16px;
+      display: none;
+      position: absolute;
+      right: 0px;
+      top: 0;
+      background-color: $white;
+      border-radius: 21px;
+      box-shadow: 0 4px 12px 0 rgba(0, 0, 0, 0.1);
+      -webkit-box-shadow: 0 4px 12px 0 rgba(0, 0, 0, 0.1);
+
+      &-content {
+        overflow-y: auto;
+        &::-webkit-scrollbar-track {
+          border-radius: 10px;
+          background-color: #fff;
+        }
+
+        &::-webkit-scrollbar {
+          width: 6px;
+          background-color: #fff;
+        }
+        &::-webkit-scrollbar-thumb {
+          border-radius: 10px;
+          background-color: #d6d6d6;
+        }
+        .list {
+          display: flex;
+          flex-direction: column;
+          border-bottom: 1px solid #ebebeb;
+          &-expand {
+            cursor: pointer;
+            margin-right: 5px;
+          }
+          &-header {
+            display: flex;
+            align-items: flex-start;
+            padding-bottom: 0.8rem;
+            margin-top: 0.8rem;
+            & p {
+              font-size: 14px;
+              cursor: pointer;
+            }
+          }
+          &-title {
+            max-width: 200px;
+            word-break: break-word;
+          }
+          &__item {
+            width: 87%;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: flex-start;
+            &-button {
+              margin-left: auto;
+              cursor: pointer;
+            }
+            &-link {
+              font-size: 14px;
+              width: 215px;
+              word-wrap: break-word;
+              color: $dark-bg;
+              cursor: pointer;
+            }
+          }
+          &-links {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            margin-left: 2rem;
+          }
+
+          &-button {
+            margin-right: 10px;
+            cursor: pointer;
+            &:hover {
+              transform: scale(1.1);
+              transition: $transition;
+            }
+            &-group {
+              margin-left: auto;
+            }
+          }
+        }
+      }
+      &-header {
+        width: 100%;
+        padding-bottom: 16px;
+        border-bottom: 1px solid #ebebeb;
+      }
+      &-close {
+        width: 42px;
+        height: 42px;
+        top: 0;
+        right: 0;
+        border-radius: 21px;
+        background-color: $dark-bg;
+        position: absolute;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        &:hover {
+          @include colorBtnHover($dark-bg);
+        }
+        &-icon {
+          width: 16px;
+          height: 16px;
+          background-color: $white;
+          -webkit-mask: url('../../assets/img/icons/feeds//star-filled.svg')
+            center;
+          mask: url('../../assets/img/icons/feeds/star-filled.svg') center;
+        }
+      }
+      &_open {
+        @extend .header-favorites__list;
+        display: flex;
+        flex-direction: column;
+      }
+    }
+  }
+}
+
+.details {
+  &__favorites {
+    height: 20px;
+    cursor: pointer;
+    position: relative;
+    &-star {
+      width: 20px;
+      height: 20px;
+    }
+    .favorites {
+      &__block {
+        cursor: auto;
+        width: 260px;
+        max-height: 450px;
+        position: absolute;
+        top: -16px;
+        right: -16px;
+        padding: 1rem;
+        background-color: $white;
+        border-radius: 20px;
+        box-shadow: 0 4px 12px 0 rgba(0, 0, 0, 0.1);
+        -webkit-box-shadow: 0 4px 12px 0 rgba(0, 0, 0, 0.1);
+        z-index: 500;
+        overflow-y: auto;
+        &-header {
+          margin-bottom: 0.8rem;
+        }
+        &::-webkit-scrollbar-track {
+          border-radius: 10px;
+          background-color: #fff;
+        }
+
+        &::-webkit-scrollbar {
+          width: 6px;
+          background-color: #fff;
+        }
+        &::-webkit-scrollbar-thumb {
+          border-radius: 10px;
+          background-color: #d6d6d6;
+        }
+        &-list {
+          .list__item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 0.4rem;
+            font-size: 0.9rem;
+            &__checkbox {
+              margin: 0;
+              margin-right: 0.6rem;
+            }
+            &:last-child {
+              margin-bottom: 0;
+            }
+          }
+        }
+        &-times {
+          width: 20px;
+          height: 20px;
+          cursor: pointer;
+          position: absolute;
+          top: 1rem;
+          right: 1rem;
+        }
+        &-input {
+          height: 32px;
+          width: 150px;
+          padding: 0.5rem 0.8rem;
+          border-radius: 4px;
+          background-color: #f0f0f0;
+          border: none;
+          margin-right: 10px;
+        }
+        &-input:focus {
+          outline: none;
+        }
+        &-button {
+          display: flex;
+          align-items: center;
+          outline: none;
+          border: none;
+          border-radius: 20px;
+          background-color: $white;
+          color: #00838f;
+          cursor: pointer;
+          font-family: Roboto;
+          font-size: 13px;
+          font-weight: 500;
+          margin-top: 0.6rem;
+          padding: 0;
+          &-plus {
+            width: 14px;
+            margin-right: 5px;
+            transform: scale(0.9, 0.9);
+          }
+          &-group {
+            margin-top: 0.6rem;
+            display: flex;
+            align-items: center;
+          }
+          &-submit {
+            width: 32px;
+            height: 32px;
+            outline: none;
+            border-radius: 4px;
+            border: none;
+            cursor: pointer;
+            margin-right: 10px;
+          }
+          &-close {
+            width: 32px;
+            height: 32px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            outline: none;
+            border-radius: 4px;
+            border: none;
+            cursor: pointer;
+            padding: 0;
+            &-icon {
+              width: 16px;
+              height: 16px;
+              background-color: $dark-bg;
+              -webkit-mask: url('../../assets/img/icons/filters/times.svg')
+                center;
+              -webkit-mask-size: 12px 12px;
+              mask-size: 14px 14px;
+              mask: url('../../assets/img/icons/filters/times.svg') no-repeat
+                center;
+            }
+          }
+        }
+      }
+    }
+  }
+}

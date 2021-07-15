@@ -1,0 +1,86 @@
+@import '../../../assets/scss/variables.scss';
+
+.feedback {
+  position: absolute;
+  top: 2%;
+  width: 400px;
+  padding: 30px;
+  background: $white;
+  border-radius: 20px;
+  box-shadow: 0 4px 12px 0 rgba(0, 0, 0, 0.1);
+  -webkit-box-shadow: 0 4px 12px 0 rgba(0, 0, 0, 0.1);
+  &-description {
+    padding-top: 15px;
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 1.5;
+    color: #7d7d7d;
+    &-link {
+      cursor: pointer;
+      color: #00838f;
+      text-decoration: none;
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+    &-button {
+      @extend .feedback-description-link;
+      &:hover {
+        text-decoration: none;
+      }
+    }
+  }
+  &-form {
+    margin-top: 24px;
+    display: flex;
+    flex-direction: column;
+    font-size: 14px;
+  }
+  &-title {
+    font-size: 20px;
+    cursor: default;
+  }
+  &-times {
+    position: absolute;
+    top: 30px;
+    right: 30px;
+    width: 20px;
+    height: 20px;
+    background-color: #333;
+    cursor: pointer;
+    -webkit-mask: url('../../../assets/img/icons/feeds/roundTimes.svg')
+      no-repeat;
+    mask: url('../../../assets/img/icons/feeds/roundTimes.svg') no-repeat;
+  }
+  &-buttons {
+    margin-top: 14px;
+    margin-left: auto;
+  }
+  &-button {
+    width: 80px;
+    outline: none;
+    border-radius: 21px;
+    border: 0;
+    font-family: $main-font;
+    padding: 13px 0;
+    font-weight: bold;
+    cursor: pointer;
+  }
+  &-submit {
+    @extend .feedback-button;
+    margin-left: 10px;
+    background-color: $dark-bg;
+    color: $white;
+    &:hover {
+      background-color: rgba($dark-bg, 0.9);
+    }
+  }
+  &-cancel {
+    @extend .feedback-button;
+    background-color: #f0f0f0;
+    color: $dark-bg;
+    &:hover {
+      background-color: rgba($main-color-text, 0.1);
+    }
+  }
+}

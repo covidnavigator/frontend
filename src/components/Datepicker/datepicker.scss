@@ -1,0 +1,71 @@
+@import '../../assets/scss/variables';
+
+.datepicker {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background-color: #786cba;
+  border-radius: $border-radius;
+  box-shadow: $box-shadow;
+  font-family: $main-font;
+
+  &__display {
+    height: 100%;
+
+    .react-daterange-picker {
+      height: 100%;
+      width: 100%;
+
+      .react-calendar {
+        display: none;
+      }
+
+      &__wrapper {
+        background-color: $white;
+        height: 100%;
+        width: 100%;
+        padding: 0 10px;
+        border: 0px;
+        border-radius: 21px;
+        font-size: 14px;
+
+        input {
+          outline: none;
+        }
+      }
+
+      &__inputGroup {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        &:first-child {
+          padding-left: 10px;
+        }
+
+        &__input {
+          background-color: $white;
+        }
+      }
+
+      &__button {
+        outline: none;
+        &:hover {
+          color: $dark-bg;
+        }
+      }
+    }
+  }
+
+  &__calendar {
+    position: absolute;
+    z-index: 100;
+    top: 45px;
+
+    &__daterange {
+      border-radius: $border-radius;
+      box-shadow: $box-shadow;
+    }
+
+  }
+}

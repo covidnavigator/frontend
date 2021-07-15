@@ -1,0 +1,172 @@
+@import '../../assets/scss/variables';
+
+.small-hint {
+  position: absolute;
+  z-index: 9999;
+  padding: 5px;
+  animation: $animation fadeIn;
+
+  &__content {
+    padding: 5px;
+    opacity: 0.9;
+    background-color: $main-color-text;
+    border-radius: 5px;
+    color: $white;
+
+    font-family: $main-font;
+    white-space: nowrap;
+  }
+
+  &--top {
+    margin-bottom: 5px;
+  }
+  &--bottom {
+    margin-top: 5px;
+  }
+  &--right {
+    margin-left: 5px;
+  }
+  &--left {
+    margin-right: 5px;
+  }
+
+  &::after {
+    content: '';
+    width: 0;
+    height: 0;
+    margin: auto;
+    display: block;
+    position: absolute;
+    opacity: 0.9;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border: 5px solid transparent;
+  }
+
+  &--top:after {
+    top: auto;
+    border-bottom: none;
+    border-top-color: $main-color-text;
+  }
+
+  &--left:after {
+    left: auto;
+    border-right: none;
+    border-left-color: $main-color-text;
+  }
+
+  &--right:after {
+    right: auto;
+    border-left: none;
+    border-right-color: $main-color-text;
+  }
+
+  &--bottom:after {
+    bottom: auto;
+    border-top: none;
+    border-bottom-color: $main-color-text;
+  }
+}
+
+.large-hint {
+  @extend .small-hint;
+
+  &__content {
+    max-width: 300px;
+    padding: 20px;
+    opacity: 1;
+    background-color: $white;
+    border: 4px solid white;
+    border-radius: 5px;
+    color: $main-color-text;
+
+    font-family: $main-font;
+    font-size: 14px;
+    box-shadow: 0 4px 12px 0 rgba(0, 0, 0, 0.1);
+    white-space: break-spaces;
+    max-height: 300px;
+    overflow-y: scroll;
+
+    &::-webkit-scrollbar-track {
+      border-radius: 3px;
+      background-color: #fff;
+    }
+
+    &::-webkit-scrollbar {
+      width: 6px;
+      background-color: #fff;
+    }
+    &::-webkit-scrollbar-thumb {
+      border-radius: 3px;
+      background-color: #d6d6d6;
+    }
+  }
+
+  &--top {
+    margin-bottom: 5px;
+    margin-left: 140px;
+  }
+  &--bottom {
+    margin-top: 5px;
+    margin-left: 140px;
+  }
+  &--right {
+    margin-left: 5px;
+  }
+  &--left {
+    margin-right: 5px;
+  }
+
+  &::after {
+    content: '';
+    width: 0;
+    height: 0;
+    margin: auto;
+    display: block;
+    position: absolute;
+    opacity: 1;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border: 5px solid transparent;
+  }
+
+  &--top:after {
+    left: -280px;
+    top: auto;
+    border-bottom: none;
+    border-top-color: $white;
+  }
+
+  &--left:after {
+    left: auto;
+    border-right: none;
+    border-left-color: $white;
+  }
+
+  &--right:after {
+    right: auto;
+    border-left: none;
+    border-right-color: $white;
+  }
+
+  &--bottom:after {
+    left: -280px;
+    bottom: auto;
+    border-top: none;
+    border-bottom-color: $white;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}

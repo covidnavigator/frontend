@@ -1,0 +1,64 @@
+@import '../../assets/scss/variables.scss';
+
+.permission {
+  &-settings {
+    width: 100%;
+    height: calc(100% - 85px);
+    max-width: 1000px;
+    margin: 65px auto 0 auto;
+    padding: 2rem 0;
+    &__title {
+      font-size: 2rem;
+    }
+    &-block {
+      background: $white;
+      padding: 2rem;
+      margin-bottom: 1rem;
+      border-radius: 5px;
+      box-shadow: $box-shadow;
+    }
+    &__wrap {
+      margin: 1rem;
+    }
+    &__button {
+      padding: 0.5rem 1rem;
+      border: none;
+      border-radius: 5px;
+      background: $dark-bg;
+      color: #fff;
+      font-size: 0.9rem;
+      font-weight: 500;
+      outline: 0;
+      cursor: pointer;
+    }
+  }
+
+  &-table {
+    width: 100%;
+    &__row {
+      text-align: left;
+      th,
+      td {
+        &:first-child {
+          width: 90%;
+        }
+        padding: 1rem 0.5rem;
+        font-size: 1rem;
+        line-height: 1.5em;
+        &:not(:first-child) {
+          text-align: center;
+          padding: 0.5rem;
+        }
+      }
+      th {
+        font-weight: 400;
+        color: rgba($main-color-text, 0.5);
+        border-bottom: 1px solid $mint;
+        padding-bottom: 0.5rem;
+      }
+    }
+  }
+}
+.permission-settings .form-item {
+  width: 50%;
+}

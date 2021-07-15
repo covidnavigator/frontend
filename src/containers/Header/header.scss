@@ -1,0 +1,500 @@
+@import '../../assets/scss/variables.scss';
+@import '../../assets/scss/placeholders.scss';
+@import '../../assets/scss/mixins.scss';
+
+.header {
+  position: fixed;
+  width: 100%;
+  height: 65px;
+  display: flex;
+  align-items: center;
+  padding: 20px;
+  font-weight: 500;
+  z-index: 10;
+
+  &__logo {
+    margin: 6px 10px 0 -9px;
+    min-width: 130px;
+    height: 65px;
+    background: url('../../assets/img/icons/header/header-text.svg');
+    background-position: center;
+    cursor: pointer;
+  }
+  &__addButton {
+    position: relative;
+    margin: 0 10px 0 0;
+    height: 42px;
+    min-width: 92px;
+    display: flex;
+    align-items: center;
+    outline: none;
+    border: 4px solid $white;
+    border-radius: 20px;
+    cursor: pointer;
+    background-color: $white;
+    padding: 0.5rem 1rem;
+    box-shadow: 0 4px 12px 0 rgba(0, 0, 0, 0.1);
+    -webkit-box-shadow: 0 4px 12px 0 rgba(0, 0, 0, 0.1);
+    color: #00838f;
+    font-family: Roboto;
+    font-size: 14px;
+    font-weight: bold;
+    &:hover {
+      @extend %whiteBtnHover;
+    }
+    &-creation {
+      color: $black;
+      position: absolute;
+      left: -4px;
+      top: -4px;
+      z-index: 100;
+      background: $white;
+      box-shadow: 0 4px 12px 0 rgba(0, 0, 0, 0.1);
+      -webkit-box-shadow: 0 4px 12px 0 rgba(0, 0, 0, 0.1);
+      min-width: 164px;
+      text-align: left;
+      border-radius: 20px;
+      display: none;
+      &__open {
+        display: block;
+      }
+    }
+    &__item {
+      display: flex;
+      align-items: center;
+      padding: 0.5rem;
+      padding-left: 1rem;
+      font-weight: 500;
+      font-size: 14px;
+      cursor: pointer;
+      color: $dark-bg;
+      &:first-child {
+        padding-top: 0.8rem;
+        border-top-left-radius: 20px;
+        border-top-right-radius: 20px;
+      }
+      &:last-child {
+        padding-bottom: 0.8rem;
+        border-bottom-left-radius: 20px;
+        border-bottom-right-radius: 20px;
+      }
+      &:hover {
+        @extend %whiteBtnHover;
+      }
+      & span {
+        margin-left: 8px;
+      }
+    }
+  }
+
+  &-home {
+    position: relative;
+    margin-right: 10px;
+    &-block {
+      cursor: pointer;
+      width: 42px;
+      height: 42px;
+      background-color: white;
+      box-shadow: 0 4px 12px 0 rgba(0, 0, 0, 0.1);
+      -webkit-box-shadow: 0 4px 12px 0 rgba(0, 0, 0, 0.1);
+      border-radius: 21px;
+
+      &:hover {
+        @extend %whiteBtnHover;
+      }
+
+      &__logo {
+        width: 42px;
+        height: 42px;
+        background-color: $dark-bg;
+        mask: url('../../assets/img/icons/header/home-solid.svg') no-repeat;
+        -webkit-mask: url('../../assets/img/icons/header/home-solid.svg')
+          no-repeat;
+        mask-size: 50%;
+        -webkit-mask-size: 50%;
+        mask-position: center;
+        -webkit-mask-position: center;
+      }
+    }
+    &-link {
+      position: absolute;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      border-radius: 21px;
+      border: 4px solid $white;
+    }
+  }
+
+  &__filters {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  &-support {
+    position: relative;
+    margin-left: auto;
+    &-block {
+      display: flex;
+      align-items: center;
+      cursor: pointer;
+      height: 42px;
+      background-color: white;
+      box-shadow: 0 4px 12px 0 rgba(0, 0, 0, 0.1);
+      -webkit-box-shadow: 0 4px 12px 0 rgba(0, 0, 0, 0.1);
+      border-radius: 21px;
+      &:hover {
+        @extend %whiteBtnHover;
+      }
+      &__logo {
+        width: 42px;
+        height: 42px;
+        background: url('../../assets/img/icons/header/icons-help-2.svg')
+          no-repeat;
+        background-position: center;
+        border-radius: 21px;
+        border: 4px solid $white;
+      }
+    }
+    &__list {
+      width: 140px;
+      padding: 16px 16px 16px 20px;
+      display: none;
+      position: absolute;
+      right: 0px;
+      top: 0;
+      background-color: $white;
+      border-radius: 21px;
+      box-shadow: 0 4px 12px 0 rgba(0, 0, 0, 0.1);
+      -webkit-box-shadow: 0 4px 12px 0 rgba(0, 0, 0, 0.1);
+      font-size: 14px;
+      font-weight: normal;
+      color: #333333;
+      cursor: default;
+      &-close {
+        width: 42px;
+        height: 42px;
+        top: 0;
+        right: 0;
+        border-radius: 21px;
+        background-color: $dark-bg;
+        position: absolute;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        &:hover {
+          @include colorBtnHover($dark-bg);
+        }
+        &-icon {
+          width: 16px;
+          height: 16px;
+          background-color: $white;
+          -webkit-mask: url('../../assets/img/icons/header/icons-help-2.svg')
+            center;
+          mask: url('../../assets/img/icons/header/icons-help-2.svg') center;
+        }
+      }
+      &_open {
+        @extend .header-support__list;
+        display: block;
+      }
+      &-title {
+        font-size: 16px;
+        cursor: default;
+        margin-bottom: 15px;
+      }
+      &-links {
+        font-weight: 500;
+        font-stretch: normal;
+        font-style: normal;
+        letter-spacing: normal;
+        color: #00838f;
+        & > li {
+          padding: 0.5rem 0;
+          span {
+            cursor: pointer;
+          }
+        }
+        & li:last-child() {
+          padding: 0.7rem 0 0 0;
+        }
+        &-about {
+          color: $dark-bg;
+          text-decoration: none;
+        }
+      }
+    }
+  }
+
+  &-menu {
+    position: relative;
+    margin-left: 10px;
+    &-block {
+      display: flex;
+      align-items: center;
+      cursor: pointer;
+      height: 42px;
+      background-color: white;
+      box-shadow: 0 4px 12px 0 rgba(0, 0, 0, 0.1);
+      -webkit-box-shadow: 0 4px 12px 0 rgba(0, 0, 0, 0.1);
+      border-radius: 21px;
+      &:hover {
+        @extend %whiteBtnHover;
+      }
+      &__logo {
+        width: 42px;
+        height: 42px;
+        background: url('../../assets/img/icons/header/hamburger.svg') no-repeat;
+        background-position: center;
+        border-radius: 21px;
+        border: 4px solid $white;
+      }
+    }
+    &__list {
+      width: 190px;
+      padding: 16px 16px 16px 20px;
+      display: none;
+      position: absolute;
+      right: 0px;
+      top: 0;
+      background-color: $white;
+      border-radius: 21px;
+      box-shadow: 0 4px 12px 0 rgba(0, 0, 0, 0.1);
+      -webkit-box-shadow: 0 4px 12px 0 rgba(0, 0, 0, 0.1);
+      font-size: 14px;
+      font-weight: normal;
+      color: #333333;
+      cursor: default;
+      &-close {
+        width: 42px;
+        height: 42px;
+        top: 0;
+        right: 0;
+        border-radius: 21px;
+        background-color: $dark-bg;
+        position: absolute;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        &:hover {
+          @include colorBtnHover($dark-bg);
+        }
+        &-icon {
+          width: 16px;
+          height: 16px;
+          background-color: $white;
+          -webkit-mask: url('../../assets/img/icons/header/hamburger.svg')
+            center;
+          mask: url('../../assets/img/icons/header/hamburger.svg') center;
+        }
+      }
+      &_open {
+        @extend .header-menu__list;
+        display: block;
+      }
+      &-title {
+        font-size: 16px;
+        cursor: default;
+        margin-bottom: 15px;
+      }
+      &-feedbacks {
+        margin-top: 8px;
+        border-top: 1px solid #ebebeb;
+      }
+      &-links {
+        font-weight: 500;
+        font-stretch: normal;
+        font-style: normal;
+        letter-spacing: normal;
+        color: #00838f;
+        & > li {
+          padding: 0.5rem 0;
+        }
+        & > li span {
+          cursor: pointer;
+        }
+        & li:first-child(),
+        & li + li {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          p:last-child() {
+            color: #333333;
+            opacity: 0.5;
+          }
+        }
+        & li:last-child() {
+          padding: 0.7rem 0 0 0;
+        }
+      }
+    }
+  }
+
+  &-user {
+    position: relative;
+    border-radius: 21px;
+    margin-left: 10px;
+    height: 42px;
+    border: 4px solid $white;
+    box-shadow: 0 4px 12px 0 rgba(0, 0, 0, 0.1);
+    background-color: white;
+    &:hover {
+      @extend %whiteBtnHover;
+    }
+    &-block {
+      display: flex;
+      align-items: center;
+      cursor: pointer;
+      height: 34px;
+      background-color: transparent;
+      border-radius: 21px;
+
+      &__logo {
+        width: 34px;
+        height: 34px;
+        background: url('../../assets/img/icons/user.svg') no-repeat;
+        background-position: center;
+      }
+    }
+    &__list {
+      width: 265px;
+      padding: 16px 16px 16px 20px;
+      display: none;
+      position: absolute;
+      right: -4px;
+      top: -4px;
+      background-color: $white;
+      border-radius: 21px;
+      box-shadow: 0 4px 12px 0 rgba(0, 0, 0, 0.1);
+      -webkit-box-shadow: 0 4px 12px 0 rgba(0, 0, 0, 0.1);
+      font-size: 14px;
+      font-weight: normal;
+      color: #333333;
+      cursor: default;
+      &-close {
+        width: 42px;
+        height: 42px;
+        top: 0;
+        right: 0;
+        border-radius: 21px;
+        background-color: $dark-bg;
+        position: absolute;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        &:hover {
+          @include colorBtnHover($dark-bg);
+        }
+        &-icon {
+          width: 16px;
+          height: 16px;
+          background-color: $white;
+          -webkit-mask: url('../../assets/img/icons/user.svg') center;
+          mask: url('../../assets/img/icons/user.svg') center;
+        }
+      }
+      &_open {
+        @extend .header-user__list;
+        display: block;
+      }
+      &-email {
+        margin-bottom: 5px;
+      }
+      &-role {
+        opacity: 0.5;
+        padding-bottom: 15px;
+      }
+      &-title {
+        font-size: 16px;
+        cursor: default;
+        margin-bottom: 15px;
+      }
+      &-links {
+        font-weight: 500;
+        font-stretch: normal;
+        font-style: normal;
+        letter-spacing: normal;
+        color: #00838f;
+        &-profile {
+          @extend .header-user__list-links;
+          margin: 8px 0;
+          padding: 8px 0;
+          border-top: 1px solid #ebebeb;
+          border-bottom: 1px solid #ebebeb;
+          li {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+          }
+          p:last-child() {
+            color: #333333;
+            opacity: 0.5;
+          }
+        }
+        & > li {
+          padding: 8px 0;
+        }
+        & > li span {
+          cursor: pointer;
+        }
+
+        &-logout {
+          color: #dd0000;
+        }
+      }
+    }
+    &__link {
+      display: inline-block;
+      width: 100%;
+      text-decoration: none;
+      padding: 0rem 0.5rem 0.3rem 0.5rem;
+      color: $main-color-text;
+      transition: $transition;
+      &:hover {
+        color: $dark-bg;
+      }
+      &_active {
+        color: $dark-bg;
+      }
+    }
+    &__item {
+      margin-bottom: 0.5rem;
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+    &__group {
+      margin-bottom: 0.5rem;
+      border-bottom: 1px solid gray;
+    }
+    &__signIn {
+      &-link {
+        font-size: 14px;
+        font-weight: bold;
+        text-decoration: none;
+        color: #00838f;
+        margin-right: 16px;
+      }
+    }
+  }
+  &-logout {
+    @extend .header-user;
+    position: relative;
+  }
+}
+
+.user-container {
+  &_top {
+    position: absolute;
+    top: 2%;
+    width: 400px;
+  }
+}
+
+.hidden {
+  display: none;
+}
+

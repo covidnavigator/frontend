@@ -1,0 +1,28 @@
+@import '../../assets/scss/variables';
+
+.slider {
+  height: 80%;
+}
+
+.rc-slider-handle {
+ background-color: $dark-bg;
+ border: none;
+ box-shadow: 0 4px 12px 0 rgba(0, 0, 0, 0.1);
+ cursor: pointer;
+}
+
+.rc-slider-mark-text {
+  padding: 5px 10px;
+  color: white;
+  background-color: #00000080;
+  box-shadow: 0 4px 12px 0 rgba(0, 0, 0, 0.1);
+  border-radius: 21px;
+  &:first-child {
+    bottom: 155px;
+    right: 35px;
+  }
+  &:last-child {
+    bottom: -5px;
+    right: 35px;
+  }
+}

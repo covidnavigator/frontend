@@ -1,0 +1,123 @@
+@import '../../assets/scss/variables.scss';
+
+.favorites {
+  &__block {
+    cursor: auto;
+    width: 260px;
+    max-height: 450px;
+    position: absolute;
+    padding: 1rem;
+    right: 25px;
+    top: -4px;
+    background-color: $white;
+    border-radius: 20px;
+    box-shadow: 0 4px 12px 0 rgba(0, 0, 0, 0.1);
+    -webkit-box-shadow: 0 4px 12px 0 rgba(0, 0, 0, 0.1);
+    z-index: 500;
+    overflow-y: auto;
+    &-header {
+      margin-bottom: 0.8rem;
+    }
+    &::-webkit-scrollbar-track {
+      border-radius: 10px;
+      background-color: #fff;
+    }
+
+    &::-webkit-scrollbar {
+      width: 6px;
+      background-color: #fff;
+    }
+    &::-webkit-scrollbar-thumb {
+      border-radius: 10px;
+      background-color: #d6d6d6;
+    }
+    &-list {
+      .list__item {
+        display: flex;
+        align-items: center;
+        margin-bottom: 0.4rem;
+        font-size: 0.9rem;
+        &__checkbox {
+          margin: 0;
+          margin-right: 0.6rem;
+        }
+        &:last-child {
+          margin-bottom: 0;
+        }
+      }
+    }
+    &-times {
+      cursor: pointer;
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+    }
+    &-input {
+      height: 32px;
+      width: 150px;
+      padding: 0.5rem 0.8rem;
+      border-radius: 4px;
+      background-color: #f0f0f0;
+      border: none;
+      margin-right: 10px;
+    }
+    &-input:focus {
+      outline: none;
+    }
+    &-button {
+      display: flex;
+      align-items: center;
+      outline: none;
+      border: none;
+      border-radius: 20px;
+      background-color: $white;
+      color: #00838f;
+      cursor: pointer;
+      font-family: Roboto;
+      font-size: 13px;
+      font-weight: 500;
+      margin-top: 0.6rem;
+      padding: 0;
+      &-plus {
+        width: 14px;
+        margin-right: 5px;
+        transform: scale(0.9, 0.9);
+      }
+      &-group {
+        margin-top: 0.6rem;
+        display: flex;
+        align-items: center;
+      }
+      &-submit {
+        width: 32px;
+        height: 32px;
+        outline: none;
+        border-radius: 4px;
+        border: none;
+        cursor: pointer;
+        margin-right: 10px;
+      }
+      &-close {
+        width: 32px;
+        height: 32px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        outline: none;
+        border-radius: 4px;
+        border: none;
+        cursor: pointer;
+        padding: 0;
+        &-icon {
+          width: 16px;
+          height: 16px;
+          background-color: $dark-bg;
+          -webkit-mask: url('../../assets/img/icons/filters/times.svg') center;
+          -webkit-mask-size: 12px 12px;
+          mask-size: 14px 14px;
+          mask: url('../../assets/img/icons/filters/times.svg') no-repeat center;
+        }
+      }
+    }
+  }
+}

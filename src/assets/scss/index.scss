@@ -1,0 +1,33 @@
+@import './reset.scss';
+@import './variables.scss';
+
+html {
+}
+
+body {
+  font-family: $main-font;
+  color: $main-color-text;
+  letter-spacing: normal;
+  height: 100vh;
+}
+
+.app {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+#root {
+  height: 100vh;
+}
+
+.wrapper {
+  position: relative;
+  height: 100vh;
+  background: $light-bg;
+  flex: 1;
+}
+
+.bold-text {
+  font-weight: 700;
+}

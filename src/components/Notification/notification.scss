@@ -1,0 +1,58 @@
+@import '../../assets/scss/variables.scss';
+
+.notification {
+  position: relative;
+  padding: 15px 40px 15px 20px;
+  margin: 10px 0;
+  width: 100%;
+  border-radius: 20px;
+  box-shadow: 0 4px 12px 0 rgba(0, 0, 0, 0.1);
+
+  &_success {
+    @extend .notification;
+    background: $dark-bg;
+  }
+
+  &_error {
+    @extend .notification;
+    background-color: #e4544a;
+  }
+
+  &__message {
+    color: $white;
+    cursor: default;
+    word-break: break-word;
+
+    &__selected-text {
+      font-weight: bold;
+    }
+
+    &_success {
+      @extend .notification__message;
+    }
+
+    &_error {
+      @extend .notification__message;
+    }
+  }
+
+  &__close {
+    position: absolute;
+    right: 17px;
+    top: 17px;
+    width: 16px;
+    height: 16px;
+    cursor: pointer;
+    background-color: $white;
+    color: white;
+    opacity: 0.9;
+    mask: url('../../assets/img/icons/articles/icons-times-copy.svg') no-repeat;
+    cursor: pointer;
+    transition: $transition;
+    z-index: 999;
+
+    &:hover {
+      opacity: 1;
+    }
+  }
+}

@@ -1,0 +1,202 @@
+@import '../../assets/scss/variables.scss';
+@import '../../components/TableItems/ArticleItem/articleItem.scss';
+
+%underline {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 5px;
+  height: 2px;
+  width: 50%;
+  margin: auto;
+}
+
+.feedbacks {
+  width: 100%;
+  height: calc(100% - 85px);
+  max-width: 1140px;
+  margin: 65px auto 0 auto;
+  padding: 0 20px 28px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  &__header {
+    text-align: center;
+    font-size: 30px;
+    margin-bottom: 30px;
+  }
+
+  &__filters {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 10px;
+  }
+  &__status {
+    width: 170px;
+    height: 42px;
+    margin-right: 20px;
+  }
+  &__search {
+    height: 42px;
+    min-width: 250px;
+    flex-grow: 1;
+    margin-right: 20px;
+  }
+  &__datepicker {
+    width: 250px;
+    height: 42px;
+    margin-right: 20px;
+  }
+  &__block {
+    position: relative;
+    width: 100%;
+    height: calc(100vh - 240px);
+    border-radius: 20px;
+    background-color: transparent;
+
+    &-error {
+      opacity: 0.5;
+      font-size: 16px;
+      font-weight: 500;
+      line-height: 36px;
+      padding-left: 7px;
+    }
+
+    &-wrap {
+      max-height: 100%;
+      padding: 5px 15px 6px 15px;
+      border: 5px solid #fff;
+      border-radius: 20px;
+      margin: 10px 0;
+      background: #fff;
+      box-shadow: 0 4px 12px 0 rgba(0, 0, 0, 0.1);
+      -webkit-box-shadow: 0 4px 12px 0 rgba(0, 0, 0, 0.1);
+      overflow-y: auto;
+
+      &::-webkit-scrollbar-track {
+        border-radius: 10px;
+        background-color: transparent;
+      }
+
+      &::-webkit-scrollbar {
+        width: 6px;
+        background-color: transparent;
+      }
+      &::-webkit-scrollbar-thumb {
+        border-radius: 10px;
+        background-color: #d6d6d6;
+      }
+
+      .table {
+        &__row {
+          th {
+            padding: 7px 3px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 12px;
+            color: rgba(#333333, 0.5);
+            font-weight: bold;
+            padding-bottom: 8px;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+            &:last-child {
+              cursor: default;
+            }
+          }
+          td {
+            padding: 7px;
+            vertical-align: top;
+          }
+
+          &-bold {
+            font-weight: bold;
+          }
+
+          &-feedback {
+            &_item {
+              cursor: pointer;
+              word-wrap: break-word;
+            }
+          }
+
+          &-select {
+            margin: 0 auto;
+
+            .css-26l3qy-menu {
+              position: absolute;
+              top: 0;
+              left: 0;
+
+              border-radius: 6px;
+              box-shadow: 0 4px 12px 0 rgba(0, 0, 0, 0.1);
+              -webkit-box-shadow: 0 4px 12px 0 rgba(0, 0, 0, 0.1);
+              // margin: 0;
+              // padding: 0;
+            }
+            &-dropdownindicator {
+              width: 14px;
+              height: 14px;
+              mask: url('../../assets/img/icons/feeds/angle-down.svg');
+            }
+          }
+          &-id {
+            display: flex;
+            padding-left: 10px !important;
+          }
+          &-feedback-title {
+            word-wrap: break-word;
+            max-width: 250px;
+            color: $main-color-text;
+            span {
+              cursor: pointer;
+            }
+            &-message {
+              font-weight: normal;
+              cursor: pointer;
+            }
+          }
+          &-author {
+            word-wrap: break-word;
+            max-width: 180px;
+          }
+          &-disposition {
+            word-wrap: break-word;
+            max-width: 270px;
+          }
+        }
+        &__header {
+          display: flex;
+          align-items: center;
+          &-id {
+            padding-left: 31px !important;
+            width: 75px;
+          }
+          &-date {
+            width: 110px;
+          }
+          &-disposition {
+            width: 250px;
+            cursor: default !important;
+          }
+          &-title {
+            width: 250px;
+          }
+          &-author {
+            width: 170px;
+          }
+          &-status {
+            width: 140px;
+            padding: 0 30px 0 15px !important;
+          }
+
+          &-sort-down {
+            transform: rotate(180deg);
+          }
+        }
+      }
+    }
+  }
+}

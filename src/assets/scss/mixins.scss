@@ -1,0 +1,7 @@
+@import './variables';
+
+@mixin colorBtnHover ($color, $opacity: 0.9) {
+  background-color: rgba($color, $opacity);
+  border-color: rgba($color, $opacity);
+  transition: $transition;
+}

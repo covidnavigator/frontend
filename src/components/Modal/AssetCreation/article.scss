@@ -1,0 +1,17 @@
+@import '../../../assets/scss/variables.scss';
+
+.container {
+  width: 584px;
+  height: 96vh;
+  margin: 2vh auto auto auto;
+  &-block {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    background: $white;
+    margin-bottom: 1rem;
+    border-radius: 20px;
+    box-shadow: 0 4px 12px 0 rgba(0, 0, 0, 0.1);
+    -webkit-box-shadow: 0 4px 12px 0 rgba(0, 0, 0, 0.1);
+  }
+}

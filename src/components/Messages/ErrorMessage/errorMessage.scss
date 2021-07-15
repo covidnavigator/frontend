@@ -1,0 +1,32 @@
+@import '../../../assets/scss/variables.scss';
+
+.error-message {
+  width: 300px;
+  padding: 1rem;
+  border-radius: 3px;
+  background: #fff;
+  font-weight: 700;
+  text-align: center;
+  &__text {
+    display: block;
+    color: #f56464;
+    margin-bottom: 1rem;
+  }
+  &__ok {
+    border: none;
+    border-radius: 3px;
+    outline: none;
+    padding: 0.5rem 1.5rem;
+    font-weight: 700;
+    border: 1px solid $mint;
+    background: $mint;
+    color: #fff;
+    transition: 0.3s;
+    cursor: pointer;
+  }
+}
+
+.error-message__ok:hover {
+  background: transparent;
+  color: $mint;
+}

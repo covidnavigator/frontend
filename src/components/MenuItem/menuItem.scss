@@ -1,0 +1,42 @@
+@import '../../assets/scss/variables.scss';
+
+.table {
+  &-actions {
+    &__item {
+      padding: 0.5rem;
+      padding-left: 2.5rem;
+      padding-right: 1rem;
+      background-size: 0.9rem;
+      background-repeat: no-repeat;
+      background-position: 1rem 50%;
+      font-size: 0.9rem;
+      transition: $transition;
+      cursor: pointer;
+      &:hover {
+        background-color: #eee;
+      }
+      &_edit {
+        background-image: url('../../assets/img/icons/icons-edit.svg');
+      }
+      &_classification {
+        background-image: url('../../assets/img/icons/articles/icons-clipboard-check.svg');
+      }
+      &_delete {
+        background-image: url('../../assets/img/icons/icons-trash.svg');
+      }
+      &_mail {
+        background-image: url('../../assets/img/icons/feedbacks/email.svg');
+      }
+      &_reset-password {
+        background-image: url('../../assets/img/icons/key-solid.svg');
+      }
+      &_activate {
+        background-image: url('../../assets/img/icons/toggle-off-solid.svg');
+      }
+      &_deactivate {
+        background-image: url('../../assets/img/icons/toggle-on-solid.svg');
+      }
+
+    }
+  }
+}

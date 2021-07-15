@@ -1,0 +1,29 @@
+.graph {
+  display: flex;
+  height: 100%;
+
+  &__legend {
+    position: absolute;
+    top: 32.5px;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 15;
+  }
+}
+
+.navigator {
+  display: flex;
+  flex: 1;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+}
+
+#navigator {
+  height: 100%;
+  width: 100%;
+}
+
+.hidden {
+  display: none;
+}

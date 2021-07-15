@@ -1,0 +1,23 @@
+@import '../../../assets/scss/variables.scss';
+
+.activity {
+  &-container {
+    width: 584px;
+    height: 96vh;
+    margin: 2vh auto auto auto;
+    &-block {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      max-height: 96vh;
+      margin-bottom: 1rem;
+      padding: 30px 0px 30px 30px;
+      background: $white;
+      border-radius: 20px;
+      box-shadow: 0 4px 12px 0 rgba(0, 0, 0, 0.1);
+      -webkit-box-shadow: 0 4px 12px 0 rgba(0, 0, 0, 0.1);
+      font-size: 14px;
+      font-family: Roboto, sans-serif;
+    }
+  }
+}

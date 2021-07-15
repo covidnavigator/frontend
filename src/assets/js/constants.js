@@ -1,0 +1,4 @@
+export const ARTICLES_TABLE_TOP_INDENT = 193
+export const ONE_ITEM_MENU_HEIGHT = 80
+export const TWO_ITEM_MENU_HEIGHT = 110
+export const THREE_ITEM_MENU_HEIGHT = 140

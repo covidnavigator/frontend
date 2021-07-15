@@ -1,0 +1,35 @@
+@import '../../assets/scss/variables.scss';
+
+.menu_overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 500;
+}
+
+.table {
+  &-actions {
+    position: absolute;
+    padding: 20px 0;
+    z-index: 1;
+    background: $white;
+    box-shadow: 0 4px 12px 0 rgba(0, 0, 0, 0.1);
+    -webkit-box-shadow: 0 4px 12px 0 rgba(0, 0, 0, 0.1);
+    text-align: left;
+    border-radius: 20px;
+    display: none;
+
+    &_open {
+      display: block;
+    }
+
+    &__link {
+      display: inline-block;
+      width: 100%;
+      text-decoration: none;
+      color: $main-color-text;
+    }
+  }
+}

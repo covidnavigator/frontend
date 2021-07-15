@@ -1,0 +1,64 @@
+@import '../../assets/scss/variables.scss';
+
+%popupButton {
+  padding: 13px 26px;
+  min-width: 96px;
+
+  font-family: $main-font;
+  outline: none;
+  border: none;
+  border-radius: 21px;
+  font-size: 14px;
+  font-weight: bold;
+  transition: $transition;
+  cursor: pointer;
+}
+
+.popup {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  max-width: 400px;
+  padding: 40px 30px 30px;
+
+  font-family: $main-font;
+  background: $white;
+  border-radius: 20px;
+  box-shadow: 0 4px 12px 0 rgba(0, 0, 0, 0.1);
+  -webkit-box-shadow: 0 4px 12px 0 rgba(0, 0, 0, 0.1);
+
+  &__text {
+    font-size: 16px;
+    margin-bottom: 24px;
+
+    line-height: 1.5;
+    word-break: break-word;
+  }
+
+  &__buttons {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+
+    &__delete {
+      @extend %popupButton;
+      margin-left: 1rem;
+      background: $dark-bg;
+      color: $white;
+      &:hover {
+        background: rgba($dark-bg, 0.9);
+      }
+    }
+
+    &__cancel {
+      @extend %popupButton;
+      background: $light-bg;
+      color: $dark-bg;
+      &:hover {
+        background: rgba($black, 0.1);
+      }
+    }
+  }
+}
