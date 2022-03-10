@@ -77,6 +77,20 @@ export const ArticleDetails = ({
     </div>
   ))
 
+  const generateSources = asset.external_sources.map((source, index) => (
+    <div className="details__externalSources_source" key={index}>
+      <div className="details__externalSources_source_name">
+        <p className="details__title">External ID Source</p>
+        <p>{source.external_name}</p>
+      </div>
+
+      <div className="details__externalSources_source_id">
+        <p className="details__title">External Identifier(s)</p>
+        <p>{source.external_ids}</p>
+      </div>
+    </div>
+  ))
+
   console.log(asset.formalism)
 
   return (
@@ -254,9 +268,36 @@ export const ArticleDetails = ({
                 <p>{asset.geography}</p>
               )}
             </div>
+            {
+              asset.published_date !== '' ? (
+                <div className="details__general-item">
+                  <p className="details__title">Published/Last Revision</p>
+                  <p>{asset.published_date.split('/').filter((date) => date !== '__' && date !== '____').join('/')}</p>
+                </div>
+              ) : null
+            }
+          </div>
+          <div className="details_authpub">
+          {asset.authors.length ? (
+              <div className="details_authpub-item">
+                <p className="details__title">Author(s)</p>
+                <p>{asset.authors.join(', ')}</p>
+            </div>
+          ) : null}
+          {asset.journal ? (
+            <div className="details_authpub-item mr-0">
+                <p className="details__title">Publication</p>
+                <p>{asset.journal.name}</p>
+            </div>
+          ) : null}
           </div>
         </div>
         <div className="details__organization">
+          {asset.external_sources.length ? (
+            <div className="details__externalSources">
+              {generateSources}
+            </div>
+          ) : null}
           <p className="details__organizationTitle">
             SOURCE (ORGANIZATION) DETAILS
           </p>

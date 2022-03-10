@@ -16,7 +16,13 @@ import {
   SET_ASSET_LOAD_SUCCESS,
   SET_KEYWORDS_SELECT,
   SET_GEOGRAPHY_SELECT,
-} from './actions'
+  SET_ARTICLE_JOURNALS,
+  SET_ARTICLE_JOURNAL_VALUE,
+  ADD_EXTERNAL_SOURCE,
+  REMOVE_EXTERNAL_SOURCE,
+  SET_EXTERNAL_SOURCE_VALUE,
+  SET_EXTERNAL_SOURCES,
+} from './actions';
 
 export const initialState = {
   asset: {
@@ -32,6 +38,7 @@ export const initialState = {
     },
     description: '',
     url: '',
+    authors: [],
     language: { value: 'en', label: 'English', nativelabel: 'English' },
     created: '',
     updated: '',
@@ -53,6 +60,12 @@ export const initialState = {
     process: [],
     setting: [],
     assetType: [],
+    published_date: '',
+    journal: {
+      name: '',
+      selected: '',
+    },
+    external_sources: [],
   },
   organization: {
     name: '',
@@ -72,11 +85,14 @@ export const initialState = {
   localitiesSelect: [],
   assetRequest: false,
   loadSuccess: false,
+  journals: [{ label: '+ Create New', value: '', fontWeight: 'bold' }],
+  externalSourcesSelect: [{ label: '+ Create New', value: '', fontWeight: 'bold' }],
 }
 
 export const reducer = (state = initialState, { type, payload }) => {
   let contacts = []
   let curators = []
+  let external_sources = []
   switch (type) {
     case SET_STATE:
       return {
@@ -240,6 +256,24 @@ export const reducer = (state = initialState, { type, payload }) => {
         curators: [...curators],
       }
 
+    case SET_EXTERNAL_SOURCE_VALUE:
+      external_sources = [...state.asset.external_sources]
+      if (payload.value.label !== '+ Create New' && payload.key === 'selected') {
+        external_sources[payload.index]['name'] = payload.value.label;
+      }
+      if (payload.value.label === '+ Create New' && payload.key === 'selected') {
+        external_sources[payload.index][payload.key.split('.')[0]] = payload.value;
+        external_sources[payload.index]['name'] = '';
+
+      } else {
+        external_sources[payload.index][payload.key.split('.')[0]] = payload.value
+      }
+
+      return {
+        ...state,
+        asset: {...state.asset, external_sources: external_sources}
+      }
+
     case SET_ASSET_REQUEST:
       return {
         ...state,
@@ -253,6 +287,68 @@ export const reducer = (state = initialState, { type, payload }) => {
         assetRequest: false,
         loadSuccess: true,
       }
+
+    case SET_ARTICLE_JOURNALS:
+      return {
+        ...state,
+        journals: [...state.journals, ...payload.journals],
+      }
+
+    case SET_ARTICLE_JOURNAL_VALUE:
+      if (payload.key === 'asset.journal.selected' && payload.value.label !== '+ Create New') {
+        return {
+          ...state,
+          [payload.key.split('.')[0]]: {
+            ...state[payload.key.split('.')[0]],
+            [payload.key.split('.')[1]]: {
+              [payload.key.split('.')[2]]: payload.value,
+              name: '',
+            },
+          },
+        }
+      } else {
+        return {
+          ...state,
+          [payload.key.split('.')[0]]: {
+            ...state[payload.key.split('.')[0]],
+            [payload.key.split('.')[1]]: {
+              ...state[payload.key.split('.')[0]][payload.key.split('.')[1]],
+              [payload.key.split('.')[2]]: payload.value,
+            },
+          },
+        }
+      }
+
+
+    case ADD_EXTERNAL_SOURCE:
+      external_sources = [...state.asset.external_sources]
+      external_sources.push({
+        name: '',
+        selected: '',
+        ids: '',
+      })
+      return {
+        ...state,
+        asset: {...state.asset, external_sources: external_sources}
+      }
+
+    case REMOVE_EXTERNAL_SOURCE:
+      external_sources = [...state.asset.external_sources]
+      external_sources.splice(payload.index, 1)
+
+      state.asset.external_sources = external_sources;
+
+      return {
+        ...state,
+        asset: {...state.asset, external_sources: external_sources}
+      }
+
+    case SET_EXTERNAL_SOURCES:
+      return {
+        ...state,
+        externalSourcesSelect: [...state.externalSourcesSelect, ...payload.state],
+      }
+
 
     default:
       return state

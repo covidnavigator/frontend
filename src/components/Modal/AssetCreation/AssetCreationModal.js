@@ -34,7 +34,13 @@ import {
   edit,
   setAssetRequest,
   setAssetLoadSuccess,
-} from './actions'
+  setArticleJournal,
+  setArticleJournalValue,
+  addExternalSource,
+  removeExternalSource,
+  setExternalSourceValue,
+  setExternalSources,
+} from './actions';
 import { reducer, initialState } from './reducer'
 
 // Redux actions
@@ -44,7 +50,9 @@ import {
   setArticleRequest,
   getArticleAction,
   getGeography,
-} from '../../../redux/actions/articlesAction'
+  getArticleJournals,
+  getExternalSources,
+} from '../../../redux/actions/articlesAction';
 
 import { getOrganizationsAction } from '../../../redux/actions/organizationsAction'
 import { getKeywords } from '../../../redux/actions/keywordsAction'
@@ -68,6 +76,8 @@ const AssetCreationModal = ({
   organizationErrorName,
   getKeywords,
   getGeography,
+  getArticleJournals,
+  getExternalSources,
 }) => {
   const [state, dispatch] = useReducer(reducer, initialState)
   const assetModalRef = useRef(null)
@@ -79,6 +89,16 @@ const AssetCreationModal = ({
 
   const changeCuratorValue = (index, key, value) => {
     dispatch(setCuratorValue(index, key, value))
+    dispatch(edit())
+  }
+
+  const changeExternalSource = (index, key, value) => {
+    dispatch(setExternalSourceValue(index, key, value))
+    dispatch(edit())
+  }
+
+  const changeArticleJournalValue = (key, value) => {
+    dispatch(setArticleJournalValue(key, value))
     dispatch(edit())
   }
 
@@ -170,6 +190,11 @@ const AssetCreationModal = ({
     dispatch(edit())
   }
 
+  const addExternalSources = () => {
+    dispatch(addExternalSource())
+    dispatch(edit())
+  }
+
   const removeContacts = (i) => {
     dispatch(removeContact(i))
     dispatch(edit())
@@ -182,6 +207,11 @@ const AssetCreationModal = ({
 
   const removeCurators = (i) => {
     dispatch(removeCurator(i))
+    dispatch(edit())
+  }
+
+  const removeExternalSources = (i) => {
+    dispatch(removeExternalSource(i))
     dispatch(edit())
   }
 
@@ -211,6 +241,8 @@ const AssetCreationModal = ({
     dispatch(setAssetRequest())
 
     let organizationSelect
+    let articleJournalsSelect
+    let externalSourcesSelect
 
     const setOrganizationData = (data) => {
       organizationSelect = data.map((org) => {
@@ -225,8 +257,25 @@ const AssetCreationModal = ({
       dispatch(setGeographySelect(data))
     }
 
+    const setExternalSourcesData = (data) => {
+      externalSourcesSelect = data.map((source) => {
+        return { label: source.external_name  }
+      })
+      dispatch(setExternalSources(externalSourcesSelect))
+    }
+
     await getGeography(setGeographyData)
     await getKeywords(setKeywordsData, makeUrl())
+    await getExternalSources(setExternalSourcesData)
+
+    const setArticleJournals = (data) => {
+      articleJournalsSelect = data.map((journal) => {
+        return { label: journal.journals_name, id: journal.journals_id }
+      })
+      dispatch(setArticleJournal(articleJournalsSelect))
+    }
+
+    await getArticleJournals(setArticleJournals)
 
     if (modalType !== 'creation') {
       const setAssetData = (article) => {
@@ -241,6 +290,15 @@ const AssetCreationModal = ({
             (item) => item.id === article.organization.id
           )[0],
         }
+        const extsource = array.external_sources.map((elem) => {
+          return {
+            name: elem.external_name,
+            selected: {
+              label: elem.external_name,
+            },
+            ids: elem.external_ids,
+          }
+        })
         const contacts = array.organization.contacts.map((item) => item)
         const curators = array.curators.map((elem) => {
           return {
@@ -260,19 +318,29 @@ const AssetCreationModal = ({
             )[0],
           }
         })
+        const journal = {
+          name: '',
+          selected: article.journal ? articleJournalsSelect.filter((item) => item.id === article.journal.id)[0] : ''
+        }
         const data = {
           id: article.id,
           name: article.name,
           ref: article.ref,
           status: status.filter((item) => article.status === item.value)[0],
           description: article.description,
+          authors: article.authors.map((item) => ({
+            label: item,
+            value: item,
+          })),
           notes: article.notes,
           url: article.url,
           language: languages[1].options.find(
-            (lang) => lang.label === article.language
+            (lang) => lang.value === article.language
           ),
           created: new Date(article.created),
           updated: new Date(article.updated),
+          published_date: article.published_date ? article.published_date :  '',
+          external_sources: extsource,
           role: roles.filter((item) => article.role.includes(item.value)),
           keywords: article.keywords.map((item) => {
             return { label: item, value: item }
@@ -298,7 +366,7 @@ const AssetCreationModal = ({
             article.formalism.includes(item.value)
           ),
           publication_type: publicationTypes.find(
-            (type) => type.label === article.publication_type
+            (type) => type.value === article.publication_type
           ),
           asset_version: article.asset_version,
           asset_maturity: maturities.find(
@@ -310,6 +378,7 @@ const AssetCreationModal = ({
           subject: [],
           author: article.author,
           isChanged: false,
+          journal: journal,
         }
         if (article.categories.length) {
           const subj = subject.filter((item) =>
@@ -380,11 +449,15 @@ const AssetCreationModal = ({
           addContact={addContacts}
           addCuratorContact={addCuratorContacts}
           addCurator={addCurators}
+          addExternalSource={addExternalSources}
           removeContact={removeContacts}
           removeCuratorContact={removeCuratorContacts}
           removeCurator={removeCurators}
+          removeExternalSource={removeExternalSources}
           changeValue={changeValue}
           changeCuratorValue={changeCuratorValue}
+          changeArticleJournalValue={changeArticleJournalValue}
+          changeExternalSource={changeExternalSource}
           urlErrorMessage={urlErrorMessage}
           organizationErrorMessage={organizationErrorMessage}
           organizationErrorName={organizationErrorName}
@@ -413,6 +486,8 @@ const mapDispatchToProps = (dispatch) => {
       dispatch(getArticleAction(id, callback)),
     getKeywords: (callback, url) => dispatch(getKeywords(callback, url)),
     getGeography: (callback) => dispatch(getGeography(callback)),
+    getArticleJournals: (callback) => dispatch(getArticleJournals(callback)),
+    getExternalSources: (callback) => dispatch(getExternalSources(callback))
   }
 }
 

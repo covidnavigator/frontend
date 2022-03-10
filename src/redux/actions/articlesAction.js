@@ -41,13 +41,17 @@ const generateArticleData = (article, curators, organization) => {
       name: article.name,
       url: article.url,
       description: article.description,
-      publication_type: article.publication_type.label,
-      language: article.language.label,
+      authors: article.authors
+        ? article.authors.map((author) => author.label)
+        : [],
+      publication_type: article.publication_type.value,
+      language: article.language.value,
       asset_version: article.asset_version,
       asset_maturity: article.asset_maturity.label,
       keywords: article.keywords
         ? article.keywords.map((word) => word.label)
         : [],
+      published_date: article.published_date === '' ? null : article.published_date,
       ref: article.ref,
       notes: article.notes,
       role: article.role.map((item) => item.value),
@@ -61,6 +65,7 @@ const generateArticleData = (article, curators, organization) => {
         ...article.process.map((item) => item.value),
       ],
       author: { id: article.author.id },
+      journal: article.journal,
     },
     organization: organization,
     curators: curators,
@@ -108,6 +113,12 @@ const generateArticleData = (article, curators, organization) => {
           })
         : [],
     },
+    external_sources: article.external_sources ? article.external_sources.map((source) => {
+      return {
+        external_ids: source.ids,
+        external_name: source.name,
+      }
+    }) : [],
   }
   return data
 }
@@ -271,6 +282,24 @@ export const deleteArticleAction = (id) => {
           type: SET_ARTICLE_DELETE_SUCCESS,
         })
       }
+    })
+  }
+}
+
+export const getArticleJournals = (callback) => {
+  return async (dispatch) => {
+    await axios.get(`${API_URL}articles/journals`).then((response) => {
+      callback(response.data);
+    })
+  }
+}
+
+export const getExternalSources = (callback) => {
+  return async (dispatch) => {
+    await axios
+    .get(`${API_URL}articles/external_sources`)
+    .then((response) => {
+      callback(response.data)
     })
   }
 }

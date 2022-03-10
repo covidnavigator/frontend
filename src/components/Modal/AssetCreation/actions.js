@@ -18,6 +18,12 @@ export const SET_ASSET_REQUEST = 'SET_ASSET_REQUEST'
 export const SET_ASSET_LOAD_SUCCESS = 'SET_ASSET_LOAD_SUCCESS'
 export const SET_KEYWORDS_SELECT = 'SET_KEYWORDS_SELECT'
 export const SET_GEOGRAPHY_SELECT = 'SET_GEOGRAPHY_SELECT'
+export const SET_ARTICLE_JOURNALS = 'SET_ARTICLE_JOURNALS'
+export const SET_ARTICLE_JOURNAL_VALUE = 'SET_ARTICLE_JOURNAL_VALUE'
+export const ADD_EXTERNAL_SOURCE = 'ADD_EXTERNAL_SOURCE'
+export const REMOVE_EXTERNAL_SOURCE = 'REMOVE_EXTERNAL_SOURCE'
+export const SET_EXTERNAL_SOURCE_VALUE = 'SET_EXTERNAL_SOURCE_VALUE'
+export const SET_EXTERNAL_SOURCES = 'SET_EXTERNAL_SOURCES'
 
 export const edit = () => ({
   type: SET_MODIFY,
@@ -54,6 +60,15 @@ export const setCuratorValue = (index, key, value) => ({
   },
 })
 
+export const setExternalSourceValue = (index, key, value) => ({
+  type: SET_EXTERNAL_SOURCE_VALUE,
+  payload: {
+    index,
+    key,
+    value,
+  },
+})
+
 export const addContact = () => ({
   type: ADD_CONTACT,
 })
@@ -67,6 +82,10 @@ export const addCuratorContact = (index) => ({
 
 export const addCurator = () => ({
   type: ADD_CURATOR,
+})
+
+export const addExternalSource = () => ({
+  type: ADD_EXTERNAL_SOURCE,
 })
 
 export const setCurators = (curators) => ({
@@ -93,6 +112,13 @@ export const removeCuratorContact = (curatorIndex, index) => ({
 
 export const removeCurator = (index) => ({
   type: REMOVE_CURATOR,
+  payload: {
+    index,
+  },
+})
+
+export const removeExternalSource = (index) => ({
+  type: REMOVE_EXTERNAL_SOURCE,
   payload: {
     index,
   },
@@ -125,4 +151,25 @@ export const setAssetRequest = () => ({
 
 export const setAssetLoadSuccess = () => ({
   type: SET_ASSET_LOAD_SUCCESS,
+})
+
+export const setArticleJournal = (journals) => ({
+  type: SET_ARTICLE_JOURNALS,
+  payload: {
+    journals,
+  }
+})
+
+export const setArticleJournalValue = (key, value) => ({
+  type: SET_ARTICLE_JOURNAL_VALUE,
+  payload: {
+    key,
+    value,
+  },
+})
+export const setExternalSources = (state) => ({
+  type: SET_EXTERNAL_SOURCES,
+  payload: {
+    state,
+  },
 })

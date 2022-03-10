@@ -34,11 +34,14 @@ import 'react-datepicker/dist/react-datepicker.css'
 import './form.scss'
 import { FormCreatableSelect } from './FormCreatableSelect'
 import ApplicationHelper from '../../assets/js/utils'
+import { FormInputDate } from './FormInputDate';
 
 export function CreateArticleForm({
   state,
   changeValue,
   changeCuratorValue,
+  changeArticleJournalValue,
+  changeExternalSource,
   handleCloseModal,
   activeTab,
   modalType,
@@ -46,9 +49,11 @@ export function CreateArticleForm({
   addContact,
   addCuratorContact,
   addCurator,
+  addExternalSource,
   removeContact,
   removeCuratorContact,
   removeCurator,
+  removeExternalSource,
   createAsset,
   updateAsset,
   urlErrorMessage,
@@ -108,6 +113,10 @@ export function CreateArticleForm({
     changeCuratorValue(index, key, value)
   }
 
+  const changeExternalSources = (index, key, value) => {
+    changeExternalSource(index, key, value)
+  }
+
   const verifyCurators = () => {
     let contactError = false
     let organizationError = false
@@ -151,6 +160,10 @@ export function CreateArticleForm({
   const verifyIdentifitcation = () => {
     let contactError = false
     let organizationError = false
+    let dateError = isDateCorrect(state.asset.published_date);
+    let articleJournalError = false
+    let externalSourcesError = isExternalSourcesCorrect(state.asset.external_sources)
+
     if (state.organization.value.label === '+ Create New') {
       state.contacts.forEach((contact) => {
         if (
@@ -172,12 +185,17 @@ export function CreateArticleForm({
       organizationError = true
     }
 
+    if ((state.asset.journal.selected.label === '+ Create New'
+      && state.asset.journal.name.trim().length === 0) || isJournalExist(state.asset.journal.name.trim())) {
+      articleJournalError = true;
+    }
+
     if (
       !contactError &&
       state.asset.name.trim().length !== 0 &&
       ApplicationHelper.validateUrl(state.asset.url) &&
       state.asset.description.trim().length !== 0 &&
-      !organizationError
+      !organizationError && !dateError && !articleJournalError && !externalSourcesError
     ) {
       return true
     } else {
@@ -361,6 +379,58 @@ export function CreateArticleForm({
     return false
   }
 
+  const isDateCorrect = (date) => {
+    const errorDate = date.split('/');
+    if ((errorDate[2] !== '__' && errorDate[1] === '__') || (errorDate[2] !== '__' && errorDate[0] === '____')) {
+      return true;
+    } else if (errorDate[1] !== '__' && errorDate[0] === '____') {
+      return true;
+    }
+    const formatted_date = errorDate.filter((date) => date !== '__' && date !== '____').join('/');
+
+    if (formatted_date.length === 0) {
+      return false;
+    }
+    const isCorrectDate = new Date(formatted_date);
+    if (Object.prototype.toString.call(isCorrectDate) === "[object Date]") {
+      if (isNaN(isCorrectDate.getTime())) {
+        return true;
+      } else {
+        return false;
+      }
+    } else {
+      return false;
+    }
+    return true;
+  }
+
+  const isExternalSourcesCorrect = (external_sources) => {
+    let error = false;
+    external_sources.forEach((source) => {
+      if (source.name === '' && source.ids !== '') {
+        error = true;
+      } else if (source.name !== '' && source.ids === '') {
+        error = true;
+      } else if (source.selected.label === '+ Create New' && state.externalSourcesSelect.some(
+        (src) => src.label.toLowerCase() === source.name.toLowerCase())) {
+        error = true;
+      }
+    })
+    return error;
+  }
+
+  const isExternalSourceExist = (name) => {
+    if (name === '') return false
+    if (
+      state.externalSourcesSelect.some(
+        (src) => src.label.toLowerCase() === name.toLowerCase()
+      )
+    ) {
+      return true
+    }
+    return false
+  }
+
   const isUniqueOrganizationName = (name) => {
     if (
       !name.length ||
@@ -373,6 +443,18 @@ export function CreateArticleForm({
       return false
     }
     return true
+  }
+
+  const isJournalExist = (name) => {
+    if (name === '') return false
+    if (
+      state.journals.some(
+        (journal) => journal.label.toLowerCase() === name.toLowerCase()
+      )
+    ) {
+      return true
+    }
+    return false
   }
 
   const generateCurators = state.curators.map((curator, index) => (
@@ -513,6 +595,96 @@ export function CreateArticleForm({
     </div>
   ))
 
+  const generateSources = state.asset.external_sources.map((source, index) => (
+    <div key={index}
+         className='form__creation-curators mb-10'>
+      <FormSelect
+        className='form-item'
+        label="External ID Source"
+        onChange={(key, value) => changeExternalSources(index, key, value)}
+        isSearch={true}
+        hideSelectedOptions={true}
+        style={{ menuTop: '42px' }}
+        value={source.selected}
+        name="selected"
+        options={state.externalSourcesSelect}
+        error={
+          identificationValidation
+            ? source.name === '' && source.ids !== ''
+              ? true
+              : false
+            : false
+        }
+      />
+
+      <img
+        style={{ cursor: 'pointer' }}
+        onClick={(e) => removeExternalSource(index)}
+        src={times}
+        alt="times"
+      />
+
+      {source.selected.label !== '+ Create New' ? (
+        <FormTextarea
+          className="form-item__notes"
+          label="External Identifier(s)"
+          maxLength={1000}
+          value={source.ids}
+          name="ids"
+          onChange={(key, value) => changeExternalSources(index, key, value)}
+          error={
+            identificationValidation
+              ? source.name !== '' && source.ids === ''
+                ? true
+                : false
+              : false
+          }
+          id={'sourceIdentifier' + index}
+        />) : null }
+
+      {source.selected.label === '+ Create New' ? (
+        <div className="form__creation-curators_info">
+          <FormInput
+            className="form-item"
+            label="External ID Source Name"
+            name="name"
+            onChange={(key, value) => changeExternalSources(index, key, value)}
+            value={source.name}
+            error={
+              identificationValidation
+                ? source.name === '' && source.ids !== ''
+                  ? true
+                  : false
+                : false
+            }
+            errorMessage={
+              identificationValidation
+                ? isExternalSourceExist(source.name)
+                  ? 'External ID Source with this name already exists'
+                  : ''
+                : ''
+            }
+          />
+          <FormTextarea
+            className="form-item__notes"
+            label="External Identifier(s)"
+            name="ids"
+            onChange={(key, value) => changeExternalSources(index, key, value)}
+            value={source.ids}
+            maxLength={1000}
+            error={
+              identificationValidation
+                ? source.name !== '' && source.ids === ''
+                  ? true
+                  : false
+                : false
+            }
+            id={'sourceIdentifier' + index}
+          />
+        </div> ) : null }
+    </div>
+  ))
+
   return (
     <form className="form">
       <div className="form__header">
@@ -609,7 +781,7 @@ export function CreateArticleForm({
       </div>
       {modalType === 'creation' || !state.assetRequest ? (
         <>
-          <div className="form__content">
+          <div className="form__content" id="scrollContainer">
             {identification === 'active' ? (
               <React.Fragment>
                 <FormInput
@@ -642,6 +814,7 @@ export function CreateArticleForm({
                   onChange={changeValue}
                   maxLength={1000}
                 />
+
 
                 <div className="form__subsection">
                   <div className="form__subsection-select">
@@ -688,12 +861,74 @@ export function CreateArticleForm({
                 </div>
 
                 <FormSelect
+                  className={'form-item'}
+                  label="Publication (e.g. Journal)"
+                  name="asset.journal.selected"
+                  onChange={changeArticleJournalValue}
+                  isSearch={true}
+                  hideSelectedOptions={true}
+                  style={{ menuTop: '42px' }}
+                  options={state.journals}
+                  value={state.asset.journal.selected}
+                />
+
+                {state.asset.journal.selected.label === '+ Create New' ? (
+                  <div className="form__creation mb-10">
+                        <FormInput
+                          className="form-item mb-0"
+                          label="Journal Name*"
+                          name="asset.journal.name"
+                          error={
+                            identificationValidation
+                              ? state.asset.journal.name.trim().length === 0
+                                ? true
+                                : false
+                              : false
+                          }
+                          errorMessage={
+                            identificationValidation
+                              ? isJournalExist(state.asset.journal.name)
+                                ? 'Journal with this name already exists'
+                                : ''
+                              : ''
+                          }
+                          value={state.asset.journal.name}
+                          onChange={changeArticleJournalValue}
+                        />
+                    </div>
+                ) : null}
+
+                <FormInputDate
+                  className="form-item"
+                  label="Published/Last Revision Date (YYYY/MM/DD)"
+                  onChange={changeValue}
+                  name="asset.published_date"
+                  value={state.asset.published_date}
+                  errorMessage={
+                    identificationValidation
+                      ? isDateCorrect(state.asset.published_date)
+                        ? 'Incorrect date entered'
+                        : ''
+                      : ''
+                  }
+                />
+
+                <FormCreatableSelect
+                  className="form-item"
+                  label="Author(s)"
+                  name="asset.authors"
+                  value={state.asset.authors}
+                  onChange={changeValue}
+                  isMulti={true}
+                />
+
+                <FormSelect
                   className={
                     state.organization.value.label === '+ Create New'
                       ? 'form-item'
                       : 'form-item mb-24'
                   }
-                  label="Source (Organization)*"
+                  label="Source Org. (e.g. who developed it)"
                   name="organization.value"
                   error={
                     identificationValidation
@@ -814,6 +1049,24 @@ export function CreateArticleForm({
                   onChange={changeValue}
                   maxLength={1000}
                 />
+
+                <React.Fragment>
+                  {generateSources}
+                  <button
+                    onClick={addExternalSource}
+                    type="button"
+                    style={state.curators.length ? {} : { marginTop: '0px' }}
+                    className="form__creation-curators_button"
+                  >
+                    <img
+                      className="form__creation-curators_button-plus"
+                      src={plus}
+                      alt="plus"
+                    />
+                    <span>Source</span>
+                  </button>
+                </React.Fragment>
+
                 <div className="form__context-of-use">
                   <h2 className="form__context-of-use_header">
                     Intended Audience

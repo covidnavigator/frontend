@@ -794,7 +794,17 @@ const resourceData = {
         data: { $color: '#557EAA', $type: 'line' },
       },
       {
+        nodeTo: 'assertion',
+        nodeFrom: 'knowledge',
+        data: { $color: '#557EAA', $type: 'line' },
+      },
+      {
         nodeTo: 'recommend',
+        nodeFrom: 'knowledge',
+        data: { $color: '#557EAA', $type: 'line' },
+      },
+      {
+        nodeTo: 'systemrev',
         nodeFrom: 'knowledge',
         data: { $color: '#557EAA', $type: 'line' },
       },
@@ -938,8 +948,36 @@ const resourceData = {
       descr:
         'Suggested best-practice, such as may be found in a consensus recommendation.',
     },
-    id: 'recommend',
+    id: 'assertion',
     name: 'Knowledge Assertion',
+  },
+
+  'Recommendation': {
+    adjacencies: [],
+    data: {
+      $color: '#0084ad',
+      group: 'resources',
+      $type: 'image',
+      $url: 'asset.svg',
+      descr:
+        'Test',
+    },
+    id: 'recommend',
+    name: 'Recommendation',
+  },
+
+  'Systematic Review': {
+    adjacencies: [],
+    data: {
+      $color: '#0084ad',
+      group: 'resources',
+      $type: 'image',
+      $url: 'asset.svg',
+      descr:
+        'Test',
+    },
+    id: 'systemrev',
+    name: 'Systematic Review',
   },
 
   Research: {

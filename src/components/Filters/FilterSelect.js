@@ -9,6 +9,7 @@ export function FilterSelect({
   className,
   disabled,
 }) {
+  console.log(value, options)
   const customStyles = useMemo(() => ({
     option: (provided, state) => ({
       ...provided,

@@ -6,6 +6,8 @@ import './articleItem.scss'
 import moreIcon from '../../../assets/img/icons/articles/icons-ellipsis-v.svg'
 import ApplicationHelper from '../../../assets/js/utils'
 
+import { publicationTypes } from '../../../assets/js/options/formOptions'
+
 export function ArticleItem({
   article,
   deleteArticle,
@@ -52,7 +54,13 @@ export function ArticleItem({
           <span>{article.created.slice(0, 10)}</span>
         </td>
         <td className="table__row-pubType">
-          <span>{article.publication_type}</span>
+          <span>
+            {
+              publicationTypes.find(
+                (type) => type.value === article.publication_type
+              ).label
+            }
+          </span>
         </td>
         <td className="table__column_center">
           <span

@@ -1,7 +1,11 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { connect } from 'react-redux'
 
-import { status } from '../../../assets/js/options/formOptions'
+import {
+  status,
+  publicationTypes,
+} from '../../../assets/js/options/formOptions'
+import { languages } from '../../../assets/js/options/articlesFilters'
 import { ArticleDetails, Popup, Modal } from '../../../components'
 
 import { changeList, createList } from '../../../redux/actions/listsAction'
@@ -51,10 +55,13 @@ const AssetModalDetails = ({
       ref: body.ref,
       status: status.filter((item) => body.status === item.value)[0],
       description: body.description,
+      authors: body.authors,
       notes: body.notes,
       url: body.url,
-      language: body.language,
+      language: languages.find((language) => language.value === body.language)
+        .label,
       created: new Date(body.created),
+      published_date: body.published_date ? body.published_date : '',
       role: body.role,
       keywords: body.keywords,
       pan_countries: body.pan_countries,
@@ -64,7 +71,9 @@ const AssetModalDetails = ({
       state_or_provinces: body.state_or_provinces,
       localities: body.localities,
       formalism: body.formalism,
-      publication_type: body.publication_type,
+      publication_type: publicationTypes.find(
+        (type) => type.value === body.publication_type
+      ).label,
       asset_version: body.asset_version ? body.asset_version : '',
       asset_maturity: body.asset_maturity,
       author: body.author,
@@ -72,6 +81,8 @@ const AssetModalDetails = ({
         ...body.organization,
       },
       curators: [...body.curators],
+      journal: body.journal,
+      external_sources: body.external_sources,
     }
     setAsset(data)
   }

@@ -115,7 +115,15 @@ export function FormSelect({
         border: error ? '1px solid #f44336' : '1px solid #d0d0d0',
       },
     }),
-  }))
+    menuPortal: (base) => ({
+      position: 'absolute',
+      zIndex: '100',
+      width: `${selectRef.current.clientWidth}px`,
+      boxShadow: '0 0px 0px 0px rgba(0, 0, 0, 0.1)',
+      left: base.left,
+      top: base.top - 45,
+    })
+  }), [])
 
   return (
     <div className={className} ref={selectRef}>
@@ -146,6 +154,10 @@ export function FormSelect({
         placeholder={''}
         hideSelectedOptions={hideSelectedOptions}
         isSearchable={isSearch ? true : false}
+        menuPortalTarget={document.body}
+        closeMenuOnScroll={event => {
+          return event.target.id === 'scrollContainer';
+        }}
       />
     </div>
   )
